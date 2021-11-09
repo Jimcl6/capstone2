@@ -50,18 +50,23 @@ module.exports.loginUser = (reqBody) => {
 }
 
 /* admin enabler */
-module.exports.updateCourse = (reqParams) => {
-    let makeAdmin = {
-            isAdmin = true
-        }
-        // Syntax: findByIdAndUpdate(document id,updatesToBeApplied)
-    return course.findByIdAndUpdate(reqParams.userId, makeAdmin).then((user, error) => {
-        if (error) {
+module.exports.makeAdmin = (reqParams) => {
+    return user.findByIdAndUpdate(reqParams.id).then(result => {
+        if (result == null) {
             return false
         } else {
-            return `User is now an admin.`
+            result.isAdmin = true
+            return result.save().then((success, saveErr) => {
+                if (saveErr) {
+                    console.log(saveErr)
+                    return false
+                } else {
+                    return success
+                }
+            })
         }
     })
+
 }
 
 

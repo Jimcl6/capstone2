@@ -47,7 +47,7 @@ module.exports.archiveProduct = (reqParams, reqBody) => {
         if (result == null) {
             return false
         } else {
-            result.isActive = reqBody.isActive
+            result.isActive = false
             return result.save().then((success, saveErr) => {
                 if (saveErr) {
                     console.log(saveErr)

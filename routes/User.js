@@ -7,23 +7,23 @@ router.post("/checkEmail", (req, res) => {
     userController.checkEmailExists(req.body).then(resultFromController => res.send(resultFromController))
 })
 
-
-router.put('/:id'), auth.verify, (req, res) => {
+/* setAsAdmin */
+router.put('/:id/setAsAdmin', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
-    if (userData.isAdmin == true) {
-        userController.makeAdmin(req.body).then(resultFromController => res.send(resultFromController))
-    } else {
-        res.send(`Logged in account is not an admin.`)
-    }
 
-}
+    if (userData.isAdmin == false) {
+        res.send(`User not Authorized.`)
+    } else {
+        courseController.makeAdmin(req.params, req.body).then(resultFromController => res.send(resultFromController))
+    }
+})
 
 router.post('/login', (req, res) => {
     userController.loginUser(req.body).then(resultFromController => res.send(resultFromController))
 })
 
 router.post('/register', auth.verify, (req, res) => {
-    const userData = auth.decode(req.heades.authorization)
+    const userData = auth.decode(req.headers.authorization)
     if (userData.isAdmin == true) {
         userController.registerUser(req.body).then(resultFromController => res.send(resultFromController))
     } else {

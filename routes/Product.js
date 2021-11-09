@@ -31,7 +31,6 @@ router.get('/:productId', (req, res) => {
 
 
 /* update product information */
-
 router.put('/update-product', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
     if (userData.isAdmin == true) {
