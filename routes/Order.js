@@ -14,7 +14,7 @@ router.get('/', auth.verify, (req, res) => {
 
 })
 
-
+/*  */
 router.post('/order', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
 
