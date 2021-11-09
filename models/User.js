@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    createdOn: {
+        type: Date,
+        default: new Date()
+    },
     products: [{
         prodId: {
             type: String,

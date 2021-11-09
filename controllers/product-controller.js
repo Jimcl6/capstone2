@@ -1,13 +1,14 @@
 const product = require('../models/Product');
 
+
+/* add product */
 module.exports.createProduct = (reqBody) => {
-    let newProduct = new product({
+    let newProd = new product({
         name: reqBody.name,
-        description: reqBody.description,
+        prodDesc: reqBody.prodDesc,
         price: reqBody.price
     })
-
-    return newProduct.save().then((success, err) => {
+    return newProd.save().then((prod, err) => {
         if (err) {
             return false
         } else {
@@ -26,9 +27,9 @@ module.exports.getActiveProducts = () => {
 /* update a course */
 module.exports.updateProduct = (reqParams, reqBody) => {
     let updatedProduct = {
-            prodName: reqBody.prodName,
+            name: reqBody.name,
             prodDesc: reqBody.prodDesc,
-            prodPrice: reqBody.prodPrice
+            price: reqBody.price
         }
         // Syntax: findByIdAndUpdate(document id,updatesToBeApplied)
     return product.findByIdAndUpdate(reqParams.prodId, updatedProduct).then((course, error) => {
