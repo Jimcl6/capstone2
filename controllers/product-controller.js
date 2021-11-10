@@ -17,6 +17,13 @@ module.exports.createProduct = (reqBody) => {
     })
 }
 
+/* get specific product */
+module.exports.getProduct = (reqParams) => {
+    return product.findById(reqParams.productId).then(result => {
+        return result;
+    })
+}
+
 /* retrieve active courses */
 module.exports.getActiveProducts = () => {
     return product.find({ isActive: true }).then(result => {
