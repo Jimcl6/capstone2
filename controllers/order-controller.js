@@ -1,5 +1,6 @@
 const order = require('../models/Order');
 const user = require('../models/User');
+const product = require('../models/Product');
 
 /* retreive all orders */
 module.exports.getOrders = () => {
@@ -10,7 +11,6 @@ module.exports.getOrders = () => {
 
 module.exports.order = async(data) => {
 
-    // using the "await" keywrd will allow the enroll method to complete updating the user before returning a response back.
     let isUserUpdated = await user.findById(data.userId).then(user => {
         user.userOrders.push({ productId: data.productId })
 
@@ -23,11 +23,8 @@ module.exports.order = async(data) => {
         })
     })
 
-    // using the "await"keyword will allow the enroll method to complete the course before returning a response back.
-    let isProductUpdated = await product.findById(data.productId).then(product => {
-        // adds the userId in the course's enrollees array
-        product.userOrders.push({ userId: data.userId });
-        // save the updated course information information.
+    let isProductUpdated = await product.findById(data.courseId).then(product => {
+        product.enrollees.push({ userId: data.userId });
         return product.save().then((product, error) => {
             if (error) {
                 return false
@@ -37,12 +34,9 @@ module.exports.order = async(data) => {
         })
     })
 
-    // Condition that will check if the user and course documents have been updated
-    // User enrollment is successful
     if (isUserUpdated && isProductUpdated) {
         return true
     } else {
-        // user enrollment failed.
         return false
     }
 }

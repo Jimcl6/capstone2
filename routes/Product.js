@@ -3,6 +3,7 @@ const router = express.Router();
 const productController = require('../controllers/product-controller');
 const auth = require('../auth');
 
+/* add product */
 router.post('/', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
     if (userData.isAdmin == false) {
@@ -14,13 +15,8 @@ router.post('/', auth.verify, (req, res) => {
     }
 })
 
-/* add product */
-router.post('/add-product', (req, res) => {
-    productController.createProduct().then(resultFromController => res.send(resultFromController))
-})
-
 /* retrieve all active products */
-router.get('/active-products', (req, res) => {
+router.get('/products', (req, res) => {
     productController.getActiveProducts().then(resultFromController => res.send(resultFromController))
 })
 
@@ -41,7 +37,7 @@ router.put('/update-product', auth.verify, (req, res) => {
 })
 
 /* archive product */
-router.put('/archive-product', auth.verify, (req, res) => {
+router.put('/:id/archive', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
     if (userData.isAdmin == true) {
         productController.archiveProduct(req.params).then(resultFromController => res.send(resultFromController))

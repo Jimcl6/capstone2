@@ -14,7 +14,7 @@ router.put('/:id/setAsAdmin', auth.verify, (req, res) => {
     if (userData.isAdmin == false) {
         res.send(`User not Authorized.`)
     } else {
-        courseController.makeAdmin(req.params, req.body).then(resultFromController => res.send(resultFromController))
+        userController.makeAdmin(req.params, req.body).then(resultFromController => res.send(resultFromController))
     }
 })
 
