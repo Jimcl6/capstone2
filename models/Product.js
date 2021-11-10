@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema({
         default: new Date()
     },
     customer: [{
-        customerId: {
+        userId: {
             type: String,
             require: [true, 'Customer is required']
         },

@@ -24,7 +24,9 @@ router.post('/order', auth.verify, (req, res) => {
     }
 
     if (userData.isAdmin == true) {
+        console.log(data);
         orderController.order(data).then(resultFromController => res.send(resultFromController));
+
     } else {
         res.send(`User Not Authorized.`)
     }

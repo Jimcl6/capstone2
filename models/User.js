@@ -17,8 +17,8 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: new Date()
     },
-    products: [{
-        prodId: {
+    orders: [{
+        productId: {
             type: String,
             required: [true, 'Product is required']
         },
