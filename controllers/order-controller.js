@@ -13,7 +13,7 @@ module.exports.order = async(data) => {
 
     let isUserUpdated = await user.findById(data.userId).then(user => {
         user.userOrders.push({ productId: data.productId })
-
+        console.log({ productId: data.productId })
         return user.save().then((user, error) => {
             if (error) {
                 return false
@@ -25,6 +25,7 @@ module.exports.order = async(data) => {
 
     let isProductUpdated = await product.findById(data.courseId).then(product => {
         product.enrollees.push({ userId: data.userId });
+        console.log({ userId: data.userId })
         return product.save().then((product, error) => {
             if (error) {
                 return false
