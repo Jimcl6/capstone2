@@ -24,10 +24,10 @@ router.post('/login', (req, res) => {
 
 router.post('/register', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
-    if (userData.isAdmin == true) {
-        userController.registerUser(req.body).then(resultFromController => res.send(resultFromController))
-    } else {
+    if (userData.isAdmin == false) {
         res.send(`Logged in account is not an admin.`)
+    } else {
+        userController.registerUser(req.body).then(resultFromController => res.send(resultFromController))
     }
 
 })

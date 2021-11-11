@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         },
         totalAmount: {
             type: Number,
-            default: 1
+            required: [true, 'Total amount is required']
         },
         product: [{
             productId: {

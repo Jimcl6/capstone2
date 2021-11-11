@@ -25,7 +25,7 @@ router.post('/order', auth.verify, (req, res) => {
         productId: req.body.productId
     }
     console.log(data);
-    orderController.order(data).then(resultFromController => res.send(resultFromController));
+    orderController.checkout(data).then(resultFromController => res.send(resultFromController));
 })
 
 
