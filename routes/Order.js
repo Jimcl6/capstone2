@@ -19,8 +19,9 @@ router.post('/order', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
 
     let data = {
-        userId: req.body.userId,
-        productId: req.body.productId
+        userId: userData.id,
+        productId: req.body.productId,
+        totalAmount: userData.totalAmount++
     }
 
     if (userData.isAdmin == true) {

@@ -99,7 +99,9 @@ module.exports.order = async(data) => {
     // using the "await"keyword will allow the enroll method to complete the course before returning a response back.
     let isProductUpdate = await product.findById(data.prodId).then(course => {
         // adds the userId in the course's enrollees array
-        product.order.push({ userId: data.userId });
+        product.order.push({
+            userId: data.userId
+        });
         // save the updated course information information.
         return product.save().then((course, error) => {
             if (error) {
