@@ -27,7 +27,8 @@ const productSchema = new mongoose.Schema({
             required: [true, 'User ID is required']
         },
         totalAmount: {
-            type: Number
+            type: Number,
+            default: 1
         },
         purchasedOn: {
             type: Date,
