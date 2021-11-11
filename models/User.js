@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema({
     order: [{
         userId: {
             type: String,
-            required: [true, 'User ID is required']
         },
         totalAmount: {
             type: Number,
