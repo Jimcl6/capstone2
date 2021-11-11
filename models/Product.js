@@ -21,16 +21,18 @@ const productSchema = new mongoose.Schema({
         type: Date,
         default: new Date()
     },
-    customer: [{
+    order: [{
         userId: {
             type: String,
-            require: [true, 'Customer is required']
+            required: [true, 'User ID is required']
         },
-        boughtOn: {
+        totalAmount: {
+            type: Number
+        },
+        purchasedOn: {
             type: Date,
             default: new Date()
-        },
-
+        }
     }]
 
 })

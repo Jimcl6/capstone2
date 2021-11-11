@@ -69,15 +69,23 @@ module.exports.makeAdmin = (reqParams) => {
 
 }
 
+/* retrieve all orders */
+module.exports.getOrders = (reqBody) => {
+    return user.find({ order: reqBody.order }).then(result => {
+        return result;
+    })
+}
 
-/* enroll user */
 
-// Async await will be used in enrolling the user because we will need to update 2 seperate documents when enrolling a user.
-module.exports.enroll = async(data) => {
 
-    // using the "await" keywrd will allow the enroll method to complete updating the user before returning a response back.
+/* add order */
+module.exports.order = async(data) => {
+
     let isUserUpdated = await user.findById(data.userId).then(user => {
-        user.products.push({ prodId: data.prodId })
+        user.order.push({
+            productId: data.productId,
+            totalAmount: data.totalAmount
+        })
 
         return user.save().then((user, error) => {
             if (error) {
@@ -91,7 +99,7 @@ module.exports.enroll = async(data) => {
     // using the "await"keyword will allow the enroll method to complete the course before returning a response back.
     let isProductUpdate = await product.findById(data.prodId).then(course => {
         // adds the userId in the course's enrollees array
-        product.customer.push({ customerId: data.customerId });
+        product.order.push({ userId: data.userId });
         // save the updated course information information.
         return product.save().then((course, error) => {
             if (error) {

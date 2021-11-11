@@ -17,20 +17,20 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: new Date()
     },
-    orders: [{
+    order: [{
         productId: {
             type: String,
-            required: [true, 'Product is required']
+            required: [true, `Product ID is required`]
         },
-        boughtOn: {
+        totalAmount: {
+            type: Number,
+            default: 1
+        },
+        purchasedOn: {
             type: Date,
             default: new Date()
         },
-        status: {
-            type: String,
-            default: 'pending-order'
-        }
-    }]
+    }],
 })
 
 module.exports = mongoose.model('Users', userSchema)
