@@ -18,19 +18,25 @@ const userSchema = new mongoose.Schema({
         default: new Date()
     },
     order: [{
-        productId: {
+        userId: {
             type: String,
-            required: [true, `Product ID is required`]
+            required: [true, 'User ID is required']
         },
         totalAmount: {
             type: Number,
             default: 1
         },
-        purchasedOn: {
-            type: Date,
-            default: new Date()
-        },
-    }],
+        product: [{
+            productId: {
+                type: String,
+                required: [true, 'product id is required']
+            },
+            productName: [{
+                type: String,
+                required: [true, 'product name is required']
+            }]
+        }]
+    }]
 })
 
 module.exports = mongoose.model('Users', userSchema)

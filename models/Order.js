@@ -8,15 +8,25 @@ const orderSchema = new mongoose.Schema({
         type: Date,
         default: new Date()
     },
-    userOrders: [{
+    user: [{
         userId: {
             type: String,
             required: [true, 'User ID is required']
         },
-        productId: {
+        userEmail: {
             type: String,
-            required: [true, `Product ID is required`]
-        }
+            required: [true, 'User email is required']
+        },
+        product: [{
+            productId: {
+                type: String,
+                required: [true, 'product id is required']
+            },
+            productName: [{
+                type: String,
+                required: [true, 'product name is required']
+            }]
+        }]
     }]
 })
 
