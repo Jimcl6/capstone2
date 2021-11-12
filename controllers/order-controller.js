@@ -4,7 +4,7 @@ const Product = require('../models/Product');
 
 /* retreive all orders */
 module.exports.getOrders = () => {
-    return order.find({}).then(result => {
+    return Order.find({}).then(result => {
         return result;
     })
 }
@@ -17,7 +17,6 @@ module.exports.checkout = async(data) => {
         return Product.findById(data.productId).then(product => {
             return Order.find({}).then(order => {
 
-                console.log(product.price)
                 if (data.quantity < 1 || data.quantity == null) {
                     data.quantity = 1;
                 }
@@ -27,12 +26,13 @@ module.exports.checkout = async(data) => {
                     totalAmount: product.price * data.quantity,
                     user: {
                         userId: data.userId,
-                        userEmail: user.email
-                    },
-                    product: {
-                        productId: data.productId,
-                        productName: product.name
+                        userEmail: user.email,
+                        product: {
+                            productId: data.productId,
+                            productName: product.name
+                        }
                     }
+
                 })
 
                 return orderData.save().then((addOrder, error) => {
