@@ -7,7 +7,7 @@ const auth = require('../auth');
 router.post('/', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
     if (userData.isAdmin == false) {
-        res.send(`Logged in account is not an admin account`)
+        res.send(`User not authorized.`)
     } else {
         productController.createProduct(req.body).then(resultFromController => {
             res.send(resultFromController)
@@ -27,22 +27,26 @@ router.get('/:productId', (req, res) => {
 
 
 /* update product information */
-router.put('/update-product', auth.verify, (req, res) => {
+router.put('/:productId/update', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
-    if (userData.isAdmin == true) {
-        productController.updateProduct(req.params).then(resultFromController => res.send(resultFromController))
+
+    if (userData.isAdmin == false) {
+        res.send(`User Not Authorized`)
     } else {
-        res.send(`Logged in account is not an admin.`)
+        productController.updateProduct(req.params, req.body).then(resultFromController => res.send(resultFromController))
     }
+
 })
 
 /* archive product */
-router.put('/:id/archive', auth.verify, (req, res) => {
+router.put('/:productId/archive', auth.verify, (req, res) => {
     const userData = auth.decode(req.headers.authorization)
-    if (userData.isAdmin == true) {
-        productController.archiveProduct(req.params).then(resultFromController => res.send(resultFromController))
+
+    if (userData.isAdmin == false) {
+        res.send('User not Authorized.')
     } else {
-        res.send(`Logged in account is not an admin.`)
+        productController.archiveProduct(req.params, req.body).then(resultFromController => res.send(resultFromController))
     }
 })
+
 module.exports = router;

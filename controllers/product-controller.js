@@ -1,9 +1,9 @@
-const product = require('../models/Product');
+const Product = require('../models/Product');
 
 
-/* add product */
+/* add Product */
 module.exports.createProduct = (reqBody) => {
-    let newProd = new product({
+    let newProd = new Product({
         name: reqBody.name,
         prodDesc: reqBody.prodDesc,
         price: reqBody.price
@@ -17,40 +17,40 @@ module.exports.createProduct = (reqBody) => {
     })
 }
 
-/* get specific product */
+/* get specific Product */
 module.exports.getProduct = (reqParams) => {
-    return product.findById(reqParams.productId).then(result => {
+    return Product.findById(reqParams.id).then(result => {
         return result;
     })
 }
 
-/* retrieve active courses */
+/* retrieve active product */
 module.exports.getActiveProducts = () => {
-    return product.find({ isActive: true }).then(result => {
+    return Product.find({ isActive: true }).then(result => {
         return result;
     })
 }
 
-/* update a course */
+/* update a product */
 module.exports.updateProduct = (reqParams, reqBody) => {
     let updatedProduct = {
             name: reqBody.name,
-            prodDesc: reqBody.prodDesc,
+            description: reqBody.description,
             price: reqBody.price
         }
         // Syntax: findByIdAndUpdate(document id,updatesToBeApplied)
-    return product.findByIdAndUpdate(reqParams.productId, updatedProduct).then((course, error) => {
+    return Product.findByIdAndUpdate(reqParams.productId, updatedProduct).then((product, error) => {
         if (error) {
             return false
         } else {
-            return `updated product`
+            return product
         }
     })
 }
 
 /* archive method */
 module.exports.archiveProduct = (reqParams, reqBody) => {
-    return product.findByIdAndUpdate(reqParams.productId).then(result => {
+    return Product.findByIdAndUpdate(reqParams.productId).then(result => {
         if (result == null) {
             return false
         } else {
