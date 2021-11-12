@@ -39,7 +39,7 @@ module.exports.updateProduct = (reqParams, reqBody) => {
             price: reqBody.price
         }
         // Syntax: findByIdAndUpdate(document id,updatesToBeApplied)
-    return product.findByIdAndUpdate(reqParams.prodId, updatedProduct).then((course, error) => {
+    return product.findByIdAndUpdate(reqParams.productId, updatedProduct).then((course, error) => {
         if (error) {
             return false
         } else {
@@ -50,7 +50,7 @@ module.exports.updateProduct = (reqParams, reqBody) => {
 
 /* archive method */
 module.exports.archiveProduct = (reqParams, reqBody) => {
-    return product.findByIdAndUpdate(reqParams.prodId).then(result => {
+    return product.findByIdAndUpdate(reqParams.productId).then(result => {
         if (result == null) {
             return false
         } else {
