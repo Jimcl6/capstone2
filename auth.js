@@ -7,6 +7,7 @@ module.exports.createAccessToken = (user) => {
     const data = {
         id: user.id,
         email: user.email,
+        password: user.password,
         isAdmin: user.isAdmin
 
     }
@@ -23,10 +24,10 @@ module.exports.verify = (req, res, next) => {
     // if token is received and is not undefined
     if (typeof token !== "undefined") {
         console.log(token)
-            // the token sent is a type of "bearer" token which when received contains the "bearer" as a prefix to the string/
-            // Syntax: string.slice(start, end)
+        // the token sent is a type of "bearer" token which when received contains the "bearer" as a prefix to the string/
+        // Syntax: string.slice(start, end)
         token = token.slice(7, token.length)
-            // 
+        // 
         return jwt.verify(token, secret, (err, data) => {
             if (err) {
                 return res.send({ auth: 'failed' })
